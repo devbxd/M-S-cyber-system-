@@ -29,15 +29,15 @@ export default async (req, context) => {
     await store.set(`pid/${b.pid}`, key);
   } else if (b.t === 'leave') {
     const key = await store.get(`pid/${b.pid}`);
-    if (!key) return new Response('', { status: 204 });
+    if (!key) return new Response(null, { status: 204 });
     const rec = await store.get(key, { type: 'json' });
-    if (!rec) return new Response('', { status: 204 });
+    if (!rec) return new Response(null, { status: 204 });
     // a tab can be hidden and shown several times: keep the latest totals
     rec.ms = Math.max(rec.ms, Math.min(Number(b.ms) || 0, 6 * 3600 * 1000));
     rec.scroll = Math.max(rec.scroll, Math.min(Number(b.scroll) || 0, 100));
     await store.setJSON(key, rec);
   }
-  return new Response('', { status: 204 });
+  return new Response(null, { status: 204 });
 };
 
 export const config = { path: '/api/track' };
