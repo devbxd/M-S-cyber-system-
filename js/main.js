@@ -74,7 +74,7 @@
     const i = Math.max(0, P.findIndex(p => p.slug === slug));
     const p = P[i];
     const next = P[(i + 1) % P.length];
-    document.title = p.name + ' — Boudy Hajj';
+    document.title = p.name + ' — M&S Cyber Systems';
 
     // desktops: first one full width, the rest in pairs; phones grouped together
     const desk = p.shots.filter(s => s.kind === 'desktop');
