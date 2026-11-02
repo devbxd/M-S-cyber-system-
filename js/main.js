@@ -53,6 +53,7 @@
             <div class="card-body">
               <div class="card-top"><h3>${esc(p.name)}</h3><span class="sector">${esc(p.sector)}</span></div>
               <p>${esc(p.line)}</p>
+              <span class="card-more">View project ${ARROW}</span>
             </div>
           </a>`;
         }).join('')}</div>

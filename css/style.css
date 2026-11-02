@@ -207,6 +207,9 @@ p { margin: 0; }
 .card-body h3 { font-size: 20px; }
 .card-body p { color: var(--muted); font-size: 15px; margin-top: 8px; }
 .card-body .sector { font-size: 13px; color: var(--muted); }
+.card-more { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--border); width: 100%; font-weight: 500; font-size: 14px; color: var(--text); }
+.card-more svg { width: 15px; height: 15px; transition: transform .25s; }
+.card:hover .card-more svg { transform: translateX(4px); }
 .hidden { display: none !important; }
 
 /* ---------- project page ---------- */
