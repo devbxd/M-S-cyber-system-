@@ -1,9 +1,11 @@
 // Every project shown on the site, biggest first.
 // tier: 1 = systems, 2 = stores with their own dashboard, 3 = websites
+// color: brand colour used to frame the project card
 // shots: kind "desktop" (1440x900) or "mobile" (390x844 @2x); blur = data hidden on purpose
 window.PROJECTS = [
   {
     slug: 'mea',
+    color: '#c8102e',
     tier: 1,
     name: 'MEA Crew Transport',
     client: 'Middle East Airlines',
@@ -31,6 +33,7 @@ window.PROJECTS = [
   },
   {
     slug: 'invoicing',
+    color: '#0f2a4a',
     tier: 1,
     name: 'M&S Agency Invoicing',
     client: 'M&S Cyber Systems product · White Sky Travel and 5 more agencies',
@@ -61,6 +64,7 @@ window.PROJECTS = [
   },
   {
     slug: 'poudre',
+    color: '#7a2e4a',
     tier: 1,
     name: 'Poudre Beauty',
     client: 'Poudre — cosmetics & perfumes, Lebanon',
@@ -88,6 +92,7 @@ window.PROJECTS = [
   },
   {
     slug: 'manasik',
+    color: '#12382a',
     tier: 1,
     name: 'ManasikPro',
     client: 'Hajj & Umrah campaign organisers',
@@ -115,6 +120,7 @@ window.PROJECTS = [
   },
   {
     slug: 'passport-desk',
+    color: '#2a1748',
     tier: 1,
     name: 'Passport Desk',
     client: 'Hotels, travel agencies and front offices',
@@ -141,6 +147,7 @@ window.PROJECTS = [
 
   {
     slug: 'leluxe',
+    color: '#111111',
     tier: 2,
     name: 'Le Luxe',
     client: 'Le Luxe',
@@ -161,6 +168,7 @@ window.PROJECTS = [
   },
   {
     slug: 'figo-active',
+    color: '#e8461e',
     tier: 2,
     name: 'Figo Active',
     client: 'Figo Active',
@@ -182,6 +190,7 @@ window.PROJECTS = [
   },
   {
     slug: 'house-of-optics',
+    color: '#b0122d',
     tier: 2,
     name: 'House of Optics',
     client: 'House of Optics',
@@ -201,6 +210,7 @@ window.PROJECTS = [
   },
   {
     slug: 'soin-de-soie',
+    color: '#a8325e',
     tier: 2,
     name: 'Soin de Soie',
     client: 'Soin de Soie, Beirut',
@@ -220,6 +230,7 @@ window.PROJECTS = [
   },
   {
     slug: 'whiskey-and-more',
+    color: '#9a7a34',
     tier: 2,
     name: 'Whiskey & More',
     client: 'Whiskey & More',
@@ -240,6 +251,7 @@ window.PROJECTS = [
   },
   {
     slug: 'solenne',
+    color: '#8a7a64',
     tier: 2,
     name: 'Solenne',
     client: 'Solenne',
@@ -260,6 +272,7 @@ window.PROJECTS = [
 
   {
     slug: 'biodentic',
+    color: '#0d8a80',
     tier: 3,
     name: 'Biodentic',
     client: 'Biodentic, Fanar',
@@ -278,6 +291,7 @@ window.PROJECTS = [
   },
   {
     slug: 'white-sky',
+    color: '#16233b',
     tier: 3,
     name: 'White Sky Travel',
     client: 'White Sky Travel Agency',

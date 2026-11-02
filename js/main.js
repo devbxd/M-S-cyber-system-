@@ -48,7 +48,7 @@
         <div class="tier-head"><h2>${esc(tier.name)}</h2><span class="muted">${list.length} projects · ${esc(tier.blurb)}</span></div>
         <div class="grid t${t}">${list.map(p => {
           const cover = p.shots.find(s => s.src === p.cover) || p.shots[0];
-          return `<a class="card rv" href="project.html?p=${p.slug}">
+          return `<a class="card rv" href="project.html?p=${p.slug}" style="--c:${p.color}">
             <div class="card-media"><img src="${IMG}${cover.src}.jpg" alt="${esc(p.name)}" loading="lazy" width="1440" height="900"></div>
             <div class="card-body">
               <div class="card-top"><h3>${esc(p.name)}</h3><span class="sector">${esc(p.sector)}</span></div>
