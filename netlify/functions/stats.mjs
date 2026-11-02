@@ -23,7 +23,8 @@ export default async req => {
   const store = getStore('analytics');
   const { blobs } = await store.list({ prefix: 'views/' });
   const keys = blobs.map(b => b.key).filter(k => k.slice(6, 16) >= since);
-  const views = (await Promise.all(keys.map(k => store.get(k, { type: 'json' })))).filter(Boolean);
+  // pages starting with /__ are deploy checks, not visitors
+  const views = (await Promise.all(keys.map(k => store.get(k, { type: 'json' })))).filter(v => v && !v.page.startsWith('/__'));
   views.sort((a, b) => a.at.localeCompare(b.at));
 
   // a visit = all page views of one visitor less than 30 minutes apart
