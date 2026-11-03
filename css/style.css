@@ -10,8 +10,9 @@
   --radius: 14px;
   --max: 1180px;
   --pad: clamp(16px, 4vw, 32px);
-  --font: 'Geist', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --mono: 'Geist Mono', ui-monospace, monospace;
+  --font: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --serif: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --mono: 'IBM Plex Sans', system-ui, sans-serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -32,7 +33,7 @@ p { margin: 0; }
 
 .container { max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
 .muted { color: var(--muted); }
-.eyebrow { font: 500 13px/1 var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .06em; }
+.eyebrow { font: 500 14px/1.2 var(--font); color: var(--muted); }
 
 /* ---------- nav ---------- */
 .nav {
@@ -101,12 +102,6 @@ p { margin: 0; }
   padding: 6px 10px; border-radius: 99px;
 }
 
-/* ---------- clients strip ---------- */
-.clients { border-block: 1px solid var(--border); background: var(--soft); }
-.clients-in { display: flex; align-items: center; gap: 12px 32px; flex-wrap: wrap; justify-content: center; padding: 22px 0; font-weight: 600; color: #8a8a8a; font-size: 15px; letter-spacing: -0.01em; }
-.clients-in .eyebrow { width: 100%; text-align: center; margin-bottom: 4px; }
-
-/* ---------- sections ---------- */
 .section { padding: clamp(64px, 9vw, 110px) 0; }
 .section.soft { background: var(--soft); }
 .head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; margin-bottom: 40px; flex-wrap: wrap; }
@@ -275,14 +270,6 @@ figcaption { margin-top: 10px; font-size: 14px; color: var(--muted); }
   background: linear-gradient(90deg, var(--blue), var(--green), var(--amber));
 }
 
-.grad, .hero h1 .grad {
-  background: linear-gradient(90deg, var(--blue), var(--green) 50%, var(--amber));
-  background-size: 200% 100%;
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  animation: gradShift 6s ease-in-out infinite alternate;
-}
-@keyframes gradShift { to { background-position: 100% 0; } }
-
 .pill .dot { background: var(--green); box-shadow: 0 0 0 3px rgba(16, 185, 129, .2); animation: pulse 2s infinite; }
 @keyframes pulse { 50% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); } }
 
@@ -315,22 +302,6 @@ figcaption { margin-top: 10px; font-size: 14px; color: var(--muted); }
 .chip.c2 { --cc: var(--red); bottom: 70px; left: -40px; animation-delay: -1.7s; }
 .chip.c3 { --cc: var(--blue); top: -14px; right: 18%; animation-delay: -3.4s; }
 @keyframes bob { 50% { transform: translateY(-8px); } }
-
-/* clients: endless marquee with each brand's colour */
-.clients { padding: 20px 0; }
-.clients-label { display: block; text-align: center; margin-bottom: 12px; }
-.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.marquee-track { display: flex; gap: 44px; width: max-content; animation: marquee 45s linear infinite; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
-.marquee-track span { display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: 16px; color: #3f3f3f; white-space: nowrap; }
-.marquee-track span::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 18%, transparent); }
-@keyframes marquee { to { transform: translateX(calc(-50% - 22px)); } }
-
-/* stats: one colour each */
-.stat { position: relative; overflow: hidden; border-top: 3px solid var(--c); transition: transform .25s, box-shadow .25s; }
-.stat::after { content: ''; position: absolute; right: -40px; top: -40px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(color-mix(in srgb, var(--c) 22%, transparent), transparent 70%); }
-.stat b { color: var(--c); }
-.stat:hover { transform: translateY(-4px); box-shadow: 0 18px 36px -18px color-mix(in srgb, var(--c) 60%, transparent); }
 
 /* featured systems: each one on a light tint of its own brand colour */
 .feature, .feature:first-child {
@@ -381,9 +352,19 @@ figcaption { margin-top: 10px; font-size: 14px; color: var(--muted); }
   .chip { font-size: 12px; padding: 6px 10px; }
   .chip.c2 { display: none; }
   .chip.c3 { right: 0; }
-  .marquee-track span { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .grad, .glow i, .chip, .marquee-track, .cta, .pill .dot { animation: none; }
+  .glow i, .chip, .cta, .pill .dot { animation: none; }
   .hero-visual .scr.main { transform: none; }
 }
+
+/* ---------- type: editorial serif headings, plain sans text ---------- */
+h1, h2, h3, .stat b, .next h3 { font-family: var(--serif); font-weight: 500; letter-spacing: -0.01em; }
+.hero h1 { font-size: clamp(40px, 5vw, 64px); line-height: 1.05; }
+.hero h1 .grad { font-style: italic; }
+.head h2, .about h2, .cta h2, .page-head h1, .proj-head h1 { line-height: 1.1; }
+.stat b { color: var(--text); font-size: clamp(36px, 3.6vw, 48px); letter-spacing: -0.02em; }
+.card-body h3, .tier-head h2 { font-family: var(--font); font-weight: 600; letter-spacing: -0.01em; }
+.service h4 { font-weight: 600; }
+.tag { font-size: 12.5px; }
+.scr-bar span { font-size: 11px; }

@@ -114,28 +114,6 @@
 
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- clients marquee: a second copy of the list makes the loop seamless ---------- */
-  document.querySelectorAll('[data-marquee] .marquee-track').forEach(t => {
-    t.innerHTML += t.innerHTML.replace(/<span /g, '<span aria-hidden="true" ');
-  });
-
-  /* ---------- numbers count up the first time they come into view ---------- */
-  const counters = document.querySelectorAll('[data-count]');
-  if (counters.length && !calm) {
-    const cio = new IntersectionObserver(es => es.forEach(e => {
-      if (!e.isIntersecting) return;
-      cio.unobserve(e.target);
-      const el = e.target, end = +el.dataset.count, suffix = el.dataset.suffix || '', t0 = performance.now();
-      const step = now => {
-        const k = Math.min(1, (now - t0) / 1300);
-        el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3))).toLocaleString('en-US') + suffix;
-        if (k < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    }), { threshold: .6 });
-    counters.forEach(el => { el.textContent = '0'; cio.observe(el); });
-  }
-
   /* ---------- hero screenshots lean slightly towards the mouse ---------- */
   const tilt = $('[data-tilt]');
   if (tilt && !calm && matchMedia('(pointer: fine)').matches) {
