@@ -25,7 +25,7 @@
       const media = mob.length >= 3
         ? `<div class="phones">${mob.slice(0, 3).map(s => frame(s, p)).join('')}</div>`
         : `<div class="stacked">${frame(desk[0], p)}${mob[0] ? frame(mob[0], p, 'phone') : desk[1] ? frame(desk[1], p) : ''}</div>`;
-      return `<article class="feature rv">
+      return `<article class="feature rv" style="--c:${p.color}">
         <div class="feature-text">
           <span class="status">${esc(p.status)}</span>
           <h3>${esc(p.name)}</h3>
@@ -111,6 +111,51 @@
         </a>
       </div>`;
   }
+
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- clients marquee: a second copy of the list makes the loop seamless ---------- */
+  document.querySelectorAll('[data-marquee] .marquee-track').forEach(t => {
+    t.innerHTML += t.innerHTML.replace(/<span /g, '<span aria-hidden="true" ');
+  });
+
+  /* ---------- numbers count up the first time they come into view ---------- */
+  const counters = document.querySelectorAll('[data-count]');
+  if (counters.length && !calm) {
+    const cio = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      cio.unobserve(e.target);
+      const el = e.target, end = +el.dataset.count, suffix = el.dataset.suffix || '', t0 = performance.now();
+      const step = now => {
+        const k = Math.min(1, (now - t0) / 1300);
+        el.textContent = Math.round(end * (1 - Math.pow(1 - k, 3))).toLocaleString('en-US') + suffix;
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    }), { threshold: .6 });
+    counters.forEach(el => { el.textContent = '0'; cio.observe(el); });
+  }
+
+  /* ---------- hero screenshots lean slightly towards the mouse ---------- */
+  const tilt = $('[data-tilt]');
+  if (tilt && !calm && matchMedia('(pointer: fine)').matches) {
+    addEventListener('mousemove', e => {
+      const x = e.clientX / innerWidth - .5, y = e.clientY / innerHeight - .5;
+      tilt.style.setProperty('--rx', (-y * 5).toFixed(2) + 'deg');
+      tilt.style.setProperty('--ry', (x * 7).toFixed(2) + 'deg');
+    });
+  }
+
+  /* ---------- reading progress bar ---------- */
+  const bar = document.createElement('div');
+  bar.className = 'progress';
+  document.body.appendChild(bar);
+  const setBar = () => {
+    const h = document.documentElement.scrollHeight - innerHeight;
+    bar.style.transform = `scaleX(${h > 0 ? scrollY / h : 0})`;
+  };
+  addEventListener('scroll', setBar, { passive: true });
+  setBar();
 
   /* ---------- fade in on scroll ---------- */
   const io = new IntersectionObserver(es => es.forEach(e => {

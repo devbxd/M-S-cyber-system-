@@ -265,3 +265,125 @@ figcaption { margin-top: 10px; font-size: 14px; color: var(--muted); }
   html { scroll-behavior: auto; }
   .rv { opacity: 1; transform: none; transition: none; }
 }
+
+/* ---------- colour & motion ---------- */
+:root { --blue: #2563eb; --green: #10b981; --amber: #f59e0b; --red: #ef4444; --violet: #7c3aed; }
+
+.progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 60;
+  transform-origin: 0 50%; transform: scaleX(0);
+  background: linear-gradient(90deg, var(--blue), var(--green), var(--amber));
+}
+
+.grad, .hero h1 .grad {
+  background: linear-gradient(90deg, var(--blue), var(--green) 50%, var(--amber));
+  background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: gradShift 6s ease-in-out infinite alternate;
+}
+@keyframes gradShift { to { background-position: 100% 0; } }
+
+.pill .dot { background: var(--green); box-shadow: 0 0 0 3px rgba(16, 185, 129, .2); animation: pulse 2s infinite; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); } }
+
+.btn { transition: background .2s, border-color .2s, transform .2s, box-shadow .2s; }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px -12px rgba(0, 0, 0, .45); }
+
+/* hero: coloured light behind the screenshots, floating chips, slight 3D lean */
+.hero { overflow: hidden; }
+.hero-visual { isolation: isolate; perspective: 1400px; }
+.hero-visual .scr.main { transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)); transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+.glow { position: absolute; inset: -14% -10%; z-index: -1; filter: blur(60px); opacity: .5; pointer-events: none; }
+.glow i { position: absolute; width: 55%; aspect-ratio: 1; border-radius: 50%; animation: drift 16s ease-in-out infinite alternate; }
+.glow i:nth-child(1) { background: var(--blue); top: 0; left: 0; }
+.glow i:nth-child(2) { background: var(--green); top: 18%; right: 0; animation-delay: -5s; }
+.glow i:nth-child(3) { background: var(--amber); bottom: 0; left: 26%; width: 42%; animation-delay: -10s; }
+@keyframes drift { to { transform: translate(10%, 8%) scale(1.15); } }
+
+.chip {
+  position: absolute; z-index: 3;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 12px; border-radius: 12px;
+  background: #fff; border: 1px solid var(--border);
+  box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .35);
+  font-size: 13px; color: var(--muted); white-space: nowrap;
+  animation: bob 5s ease-in-out infinite;
+}
+.chip b { font-weight: 600; color: var(--text); }
+.chip::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--cc); }
+.chip.c1 { --cc: var(--green); top: -16px; left: -22px; }
+.chip.c2 { --cc: var(--red); bottom: 70px; left: -40px; animation-delay: -1.7s; }
+.chip.c3 { --cc: var(--blue); top: -14px; right: 18%; animation-delay: -3.4s; }
+@keyframes bob { 50% { transform: translateY(-8px); } }
+
+/* clients: endless marquee with each brand's colour */
+.clients { padding: 20px 0; }
+.clients-label { display: block; text-align: center; margin-bottom: 12px; }
+.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee-track { display: flex; gap: 44px; width: max-content; animation: marquee 45s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track span { display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: 16px; color: #3f3f3f; white-space: nowrap; }
+.marquee-track span::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 18%, transparent); }
+@keyframes marquee { to { transform: translateX(calc(-50% - 22px)); } }
+
+/* stats: one colour each */
+.stat { position: relative; overflow: hidden; border-top: 3px solid var(--c); transition: transform .25s, box-shadow .25s; }
+.stat::after { content: ''; position: absolute; right: -40px; top: -40px; width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(color-mix(in srgb, var(--c) 22%, transparent), transparent 70%); }
+.stat b { color: var(--c); }
+.stat:hover { transform: translateY(-4px); box-shadow: 0 18px 36px -18px color-mix(in srgb, var(--c) 60%, transparent); }
+
+/* featured systems: each one on a light tint of its own brand colour */
+.feature, .feature:first-child {
+  padding: clamp(24px, 4vw, 48px);
+  margin-bottom: 24px;
+  border: 1px solid color-mix(in srgb, var(--c) 16%, #fff);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--c) 12%, transparent), transparent 55%),
+    color-mix(in srgb, var(--c) 4%, #fff);
+}
+.feature .status { background: color-mix(in srgb, var(--c) 12%, #fff); color: var(--c); }
+.feature .status::before { background: var(--c); }
+.feature li::before { background-color: color-mix(in srgb, var(--c) 14%, #fff); }
+.feature-media .scr { transition: transform .5s cubic-bezier(.2, .7, .2, 1), box-shadow .5s; }
+.feature:hover .feature-media .scr:first-child { transform: translateY(-6px) rotate(-.6deg); }
+.feature:hover .feature-media .phones .scr:nth-child(2) { transform: translateY(-26px); }
+
+/* services and international cards */
+.service { transition: transform .25s, border-color .25s, box-shadow .25s; }
+.service:hover { transform: translateY(-4px); border-color: var(--c, var(--border)); box-shadow: 0 18px 36px -20px color-mix(in srgb, var(--c, #000) 55%, transparent); }
+.service .ico { background: var(--c, var(--navy)); box-shadow: 0 8px 18px -8px var(--c, transparent); }
+.intl .service { border-top: 3px solid var(--c); }
+.intl .service h4 { color: var(--c); }
+
+/* contact: slowly moving colour behind the black card */
+.cta {
+  background:
+    radial-gradient(circle at 15% 20%, rgba(37, 99, 235, .55), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(16, 185, 129, .45), transparent 45%),
+    radial-gradient(circle at 70% 10%, rgba(245, 158, 11, .35), transparent 40%),
+    #0a0a0a;
+  background-size: 160% 160%;
+  animation: ctaMove 14s ease-in-out infinite alternate;
+}
+@keyframes ctaMove { to { background-position: 100% 100%; } }
+
+/* work page cards glow in their brand colour */
+.card:hover { box-shadow: 0 24px 48px -22px color-mix(in srgb, var(--c, #000) 60%, transparent); }
+.card-more svg { color: var(--c); }
+.filters button.on { background: var(--text); color: #fff; }
+
+@media (max-width: 960px) {
+  .chip.c2 { left: -8px; }
+  .chip.c1 { left: -6px; }
+}
+@media (max-width: 640px) {
+  .chip { font-size: 12px; padding: 6px 10px; }
+  .chip.c2 { display: none; }
+  .chip.c3 { right: 0; }
+  .marquee-track span { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .grad, .glow i, .chip, .marquee-track, .cta, .pill .dot { animation: none; }
+  .hero-visual .scr.main { transform: none; }
+}
